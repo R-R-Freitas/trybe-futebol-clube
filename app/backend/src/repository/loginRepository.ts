@@ -7,7 +7,7 @@ export default class Repository implements ILoginModel {
   }
 
   async create(email: string): Promise<User> {
-    const user = await this.model.findOne({ where: { email } });
+    const user = await this.model.findOne({ raw: true, where: { email } });
     return user as User;
   }
 }
