@@ -11,6 +11,7 @@ import { Response } from 'superagent';
 import { Sequelize } from 'sequelize/types';
 
 chai.use(chaiHttp);
+const { expect } = chai;
 
 const foundUser = {
   id: 1,
@@ -21,8 +22,6 @@ const foundUser = {
 }
 
 const correctLoginBody = { email: 'admin@admin.com', password: 'secret_admin' }
-
-const { expect } = chai;
 
 describe('Testa se é possível logar com usuário e senha corretos', () => {
 
