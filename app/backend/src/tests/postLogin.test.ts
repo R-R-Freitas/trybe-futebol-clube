@@ -122,3 +122,33 @@ describe('Testa que não é possível logar email ou senha incorretos', () => {
   });
 
 });
+
+describe('Testa se a rota /login/validate retorna a role do usuário logado', () => {
+
+  let chaiHttpResponse: Response;
+
+  before(async () => {
+    sinon
+      .stub(Users, 'findOne')
+      .resolves(foundUser as Users);
+  });
+
+  after(()=>{
+    (Users.findOne as sinon.SinonStub).restore();
+  });
+
+  it('Verifica se a chamada retorna o código de status 200 e um token', async () => {
+    chaiHttpResponse = await chai
+       .request(app).post('/login').send(correctLoginBody);
+
+    const token = chaiHttpResponse.body.token;
+
+    chaiHttpResponse = await chai
+      .request(app).get('/login/validate').auth(token, { type: 'bearer' });
+
+    expect(chaiHttpResponse.status).to.be.equal(200);
+    expect(chaiHttpResponse.body).to.have.property('role');
+    expect(chaiHttpResponse.body.role).to.be.equal(foundUser.role);
+  });
+
+});
