@@ -144,7 +144,7 @@ describe('Testa se a rota /login/validate retorna a role do usuário logado', ()
     const token = chaiHttpResponse.body.token;
 
     chaiHttpResponse = await chai
-      .request(app).get('/login/validate').auth(token, { type: 'bearer' });
+      .request(app).get('/login/validate').set({ 'authorization': token });
 
     expect(chaiHttpResponse.status).to.be.equal(200);
     expect(chaiHttpResponse.body).to.have.property('role');
