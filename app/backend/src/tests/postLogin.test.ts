@@ -85,3 +85,40 @@ describe('Testa que não é possível logar sem email ou senha', () => {
   });
 
 });
+
+describe('Testa que não é possível logar email ou senha incorretos', () => {
+
+  let chaiHttpResponse: Response;
+  const invalidDataError = 'Incorrect email or password';
+  const wrongEmailBody = { email: 'invalid@user.com', password: 'secret_user' };
+  const wrongPasswordBody = { email: 'user@user.com', password: 'wrong_password' }
+
+  before(async () => {
+    sinon
+      .stub(Users, 'findOne')
+      .resolves(foundUser as Users);
+  });
+
+  after(()=>{
+    (Users.findOne as sinon.SinonStub).restore();
+  });
+
+  it('Verifica se a chamada com email incorreto retorna o código de status 401 e uma message', async () => {
+    chaiHttpResponse = await chai
+       .request(app).post('/login').send(wrongEmailBody);
+
+    expect(chaiHttpResponse.status).to.be.equal(401);
+    expect(chaiHttpResponse.body).to.have.property('message');
+    expect(chaiHttpResponse.body.message).to.be.equal(invalidDataError);
+  });
+
+  it('Verifica se a chamada com password incorreto retorna o código de status 401 e uma message', async () => {
+    chaiHttpResponse = await chai
+       .request(app).post('/login').send(wrongPasswordBody);
+
+    expect(chaiHttpResponse.status).to.be.equal(401);
+    expect(chaiHttpResponse.body).to.have.property('message');
+    expect(chaiHttpResponse.body.message).to.be.equal(invalidDataError);
+  });
+
+});
