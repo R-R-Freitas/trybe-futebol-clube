@@ -1,5 +1,6 @@
 import { Model, INTEGER, BOOLEAN } from 'sequelize';
 import db from '.';
+import Teams from './TeamModel';
 
 class Matches extends Model {
   public id!: number;
@@ -20,6 +21,10 @@ Matches.init({
   homeTeam: {
     type: INTEGER,
     allowNull: false,
+    references: {
+      model: 'teams',
+      key: 'id',
+    },
   },
   homeTeamGoals: {
     type: INTEGER,
@@ -28,6 +33,10 @@ Matches.init({
   awayTeam: {
     type: INTEGER,
     allowNull: false,
+    references: {
+      model: 'teams',
+      key: 'id',
+    },
   },
   awayTeamGoals: {
     type: INTEGER,
@@ -42,6 +51,12 @@ Matches.init({
   modelName: 'matches',
   timestamps: false,
 });
+
+Teams.hasMany(Matches, { foreignKey: 'homeTeam', as: 'id' });
+Teams.hasMany(Matches, { foreignKey: 'awayTeam', as: 'id' });
+
+// Matches.belongsTo(Teams, { foreignKey: 'homeTeam', as: 'id' });
+// Matches.belongsTo(Teams, { foreignKey: 'awayTeam', as: 'id' });
 
 /**
   * `Workaround` para aplicar as associations em TS:
