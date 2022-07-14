@@ -1,5 +1,5 @@
 import * as express from 'express';
-import { loginFactory, teamsFactory } from '../factories';
+import { loginFactory, teamsFactory, matchesFactory } from '../factories';
 import loginValidations from './loginValidations';
 import authToken from './authToken';
 
@@ -24,6 +24,16 @@ router.get(
 router.get(
   '/teams/:id',
   (req, res, next) => (teamsFactory().getTeamById(req, res, next)),
+);
+
+router.get(
+  '/matches',
+  (req, res, next) => (matchesFactory().getAllMatches(req, res, next)),
+);
+
+router.get(
+  '/matches/?inProgress',
+  (req, res, next) => (matchesFactory().getMatchesByProgressStatus(req, res, next)),
 );
 
 export default router;
