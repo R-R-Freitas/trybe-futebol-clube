@@ -5,10 +5,8 @@ import chaiHttp = require('chai-http');
 
 import { app } from '../app';
 import Users from '../database/models/UserModel';
-import { User } from '../protocols';
 
 import { Response } from 'superagent';
-import { Sequelize } from 'sequelize/types';
 
 chai.use(chaiHttp);
 const { expect } = chai;

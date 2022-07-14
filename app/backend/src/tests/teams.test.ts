@@ -8,7 +8,6 @@ import Teams from '../database/models/TeamModel';
 import { Team } from '../protocols';
 
 import { Response } from 'superagent';
-import { Sequelize } from 'sequelize/types';
 
 chai.use(chaiHttp);
 const { expect } = chai;
@@ -42,7 +41,7 @@ describe('Testa se é possível receber um array de times ao através do método
     expect(chaiHttpResponse.status).to.be.equal(200);
     expect(chaiHttpResponse.body).to.be.an('array');
     expect(chaiHttpResponse.body.every(
-      team => expect(team).to.have.all.keys(['id', 'teamName'])
+      (team: Team) => expect(team).to.have.all.keys(['id', 'teamName'])
     )).to.be.equal(true);
   });
 
