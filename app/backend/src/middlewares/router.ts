@@ -1,5 +1,5 @@
 import * as express from 'express';
-import loginFactory from '../factories/loginFactories';
+import { loginFactory, teamsFactory } from '../factories';
 import loginValidations from './loginValidations';
 import authToken from './authToken';
 
@@ -14,6 +14,16 @@ router.post(
 router.get(
   '/login/validate',
   authToken,
+);
+
+router.get(
+  '/teams',
+  (req, res, next) => (teamsFactory().getAllTeams(req, res, next)),
+);
+
+router.get(
+  '/teams/:id',
+  (req, res, next) => (teamsFactory().getTeamById(req, res, next)),
 );
 
 export default router;
