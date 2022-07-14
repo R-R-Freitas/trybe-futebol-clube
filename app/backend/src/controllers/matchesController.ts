@@ -8,17 +8,12 @@ export default class MatchesController {
 
   async getAllMatches(req: Request, res: Response, next: NextFunction) {
     try {
+      if (req.query.inProgress) {
+        const inProgress = (req.query.inProgress as string).toLowerCase() === 'true';
+        const matches = await this.service.getMatchesByProgressStatus(inProgress);
+        return res.status(200).json(matches);
+      }
       const matches = await this.service.getAllMatches();
-      return res.status(200).json(matches);
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  async getMatchesByProgressStatus(req: Request, res: Response, next: NextFunction) {
-    try {
-      const inProgress = (req.query.inProgress as string).toLowerCase() === 'true';
-      const matches = await this.service.getMatchesByProgressStatus(inProgress);
       return res.status(200).json(matches);
     } catch (error) {
       next(error);

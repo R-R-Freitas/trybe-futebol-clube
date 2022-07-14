@@ -109,15 +109,15 @@ describe('Testa se é possível receber um array de partidas através do método
 
   let chaiHttpResponse: Response;
 
-  before(async () => {
-    sinon
-      .stub(Matches, 'findAll')
-      .resolves(foundMatches as unknown as Matches[]);
-  });
+  // before(async () => {
+  //   sinon
+  //     .stub(Matches, 'findAll')
+  //     .resolves(foundMatches as unknown as Matches[]);
+  // });
 
-  after(()=>{
-    (Matches.findAll as sinon.SinonStub).restore();
-  });
+  // after(()=>{
+  //   (Matches.findAll as sinon.SinonStub).restore();
+  // });
 
   it('Verifica se a chamada retorna o código de status 200 e um array de partidas', async () => {
     chaiHttpResponse = await chai
@@ -138,15 +138,15 @@ describe('Testa se é possível receber um array de partidas em andamento usando
 
   let chaiHttpResponse: Response;
 
-  before(async () => {
-    sinon
-      .stub(Matches, 'findAll')
-      .resolves(inProgressMatches as unknown as Matches[]);
-  });
+  // before(async () => {
+  //   sinon
+  //     .stub(Matches, 'findAll')
+  //     .resolves(inProgressMatches as unknown as Matches[]);
+  // });
 
-  after(()=>{
-    (Matches.findAll as sinon.SinonStub).restore();
-  });
+  // after(()=>{
+  //   (Matches.findAll as sinon.SinonStub).restore();
+  // });
 
   it('Verifica se a chamada retorna o código de status 200 e um array de partidas em andamento', async () => {
     chaiHttpResponse = await chai
@@ -165,15 +165,15 @@ describe('Testa se é possível receber um array de partidas encerradas usando q
 
   let chaiHttpResponse: Response;
 
-  before(async () => {
-    sinon
-      .stub(Matches, 'findAll')
-      .resolves(finishedMatches as unknown as Matches[]);
-  });
+  // before(async () => {
+  //   sinon
+  //     .stub(Matches, 'findAll')
+  //     .resolves(finishedMatches as unknown as Matches[]);
+  // });
 
-  after(()=>{
-    (Matches.findAll as sinon.SinonStub).restore();
-  });
+  // after(()=>{
+  //   (Matches.findAll as sinon.SinonStub).restore();
+  // });
 
   it('Verifica se a chamada retorna o código de status 200 e um array de partidas encerradas', async () => {
     chaiHttpResponse = await chai

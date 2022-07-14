@@ -31,9 +31,4 @@ router.get(
   (req, res, next) => (matchesFactory().getAllMatches(req, res, next)),
 );
 
-router.get(
-  '/matches/?inProgress',
-  (req, res, next) => (matchesFactory().getMatchesByProgressStatus(req, res, next)),
-);
-
 export default router;

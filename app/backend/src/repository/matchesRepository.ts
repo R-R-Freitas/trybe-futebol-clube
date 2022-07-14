@@ -9,23 +9,27 @@ export default class MatchesRepository implements IMatchesModel {
 
   async getAllMatches(): Promise<MatchAndTeams[]> {
     const matches = await this.model.findAll(
-      { include: [
-        { model: Teams, foreignKey: 'homeTeam', as: 'teamHome', attributes: ['teamName'] },
-        { model: Teams, foreignKey: 'awayTeam', as: 'teamAway', attributes: ['teamName'] },
-      ] },
+      {
+        include: [
+          { model: Teams, as: 'teamHome', attributes: ['teamName'] },
+          { model: Teams, as: 'teamAway', attributes: ['teamName'] },
+        ],
+      },
     );
     return matches as unknown as MatchAndTeams[];
   }
 
   async getMatchesByProgressStatus(inProgress: boolean): Promise<MatchAndTeams[]> {
     const matches = await this.model.findAll(
-      { where: {
-        inProgress,
+      {
+        where: {
+          inProgress,
+        },
+        include: [
+          { model: Teams, as: 'teamHome', attributes: ['teamName'] },
+          { model: Teams, as: 'teamAway', attributes: ['teamName'] },
+        ],
       },
-      include: [
-        { model: Teams, foreignKey: 'homeTeam', as: 'teamHome', attributes: ['teamName'] },
-        { model: Teams, foreignKey: 'awayTeam', as: 'teamAway', attributes: ['teamName'] },
-      ] },
     );
     return matches as unknown as MatchAndTeams[];
   }
