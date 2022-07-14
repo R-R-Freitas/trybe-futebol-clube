@@ -5,7 +5,7 @@ import chaiHttp = require('chai-http');
 
 import { app } from '../app';
 import Matches from '../database/models/MatchModel';
-import { Match } from '../protocols';
+import { MatchAndTeams } from '../protocols';
 
 import { Response } from 'superagent';
 
@@ -126,7 +126,7 @@ describe('Testa se é possível receber um array de partidas através do método
     expect(chaiHttpResponse.status).to.be.equal(200);
     expect(chaiHttpResponse.body).to.be.an('array');
     expect(chaiHttpResponse.body.every(
-      (match: Match) => expect(match).to.have.all.keys(
+      (match: MatchAndTeams) => expect(match).to.have.all.keys(
         ['id', 'homeTeam', 'homeTeamGoals', 'awayTeam', 'awayTeamGoals', 'inProgress', 'teamHome', 'teamAway'],
       )
     )).to.be.equal(true);
@@ -155,7 +155,7 @@ describe('Testa se é possível receber um array de partidas em andamento usando
     expect(chaiHttpResponse.status).to.be.equal(200);
     expect(chaiHttpResponse.body).to.be.an('array');
     expect(chaiHttpResponse.body.every(
-      (match: Match) => expect(match).to.have.property( 'inProgress', true))
+      (match: MatchAndTeams) => expect(match).to.have.property( 'inProgress', true))
       ).to.be.equal(true);
   });
 
@@ -182,7 +182,7 @@ describe('Testa se é possível receber um array de partidas encerradas usando q
     expect(chaiHttpResponse.status).to.be.equal(200);
     expect(chaiHttpResponse.body).to.be.an('array');
     expect(chaiHttpResponse.body.every(
-      (match: Match) => expect(match).to.have.property( 'inProgress', false))
+      (match: MatchAndTeams) => expect(match).to.have.property( 'inProgress', false))
       ).to.be.equal(true);
   });
 

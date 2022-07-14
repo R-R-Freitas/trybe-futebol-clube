@@ -4,6 +4,7 @@ import ILoginService from './ILoginService';
 import ITeamsModel from './ITeamsModel';
 import ITeamsService from './ITeamsService';
 import Team from './Team';
+import Match, { MatchAndTeams } from './Match';
 
 export {
   User,
@@ -13,4 +14,6 @@ export {
   Team,
   ITeamsModel,
   ITeamsService,
+  Match,
+  MatchAndTeams,
 };
