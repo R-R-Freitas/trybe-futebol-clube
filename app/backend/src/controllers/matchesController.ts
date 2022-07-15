@@ -38,4 +38,14 @@ export default class MatchesController {
       next(error);
     }
   }
+
+  async updateMatchScore(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const { homeTeamGoals, awayTeamGoals } = req.body;
+      await this.service.updateMatchScore(parseInt(id, 10), { homeTeamGoals, awayTeamGoals });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
