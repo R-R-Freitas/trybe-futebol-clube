@@ -44,6 +44,7 @@ export default class MatchesController {
       const { id } = req.params;
       const { homeTeamGoals, awayTeamGoals } = req.body;
       await this.service.updateMatchScore(parseInt(id, 10), { homeTeamGoals, awayTeamGoals });
+      return res.status(200).json({ message: 'Gooooooaaaal!!!!' });
     } catch (error) {
       next(error);
     }
