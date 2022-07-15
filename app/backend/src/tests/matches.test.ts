@@ -215,7 +215,7 @@ describe('Testa se é possível cadastrar uma partida em andamento', () => {
 
     expect(chaiHttpResponse.status).to.be.equal(201);
     expect(chaiHttpResponse.body).to.be.an('object');
-    expect(chaiHttpResponse.body).to.have.all.keys(['homeTeam', 'awayTeam', 'homeTeamGoals', 'awayTeamGoals', 'inProgress']);
+    expect(chaiHttpResponse.body).to.have.all.keys(['id', 'homeTeam', 'awayTeam', 'homeTeamGoals', 'awayTeamGoals', 'inProgress']);
   });
 
 });
