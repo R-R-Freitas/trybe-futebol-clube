@@ -3,15 +3,18 @@ import 'dotenv/config';
 import * as jwt from 'jsonwebtoken';
 import CustomError from '../utils/CustomError';
 
-const notFound = 'Token not found';
+const invalidToken = 'Token must be a valid token';
 const secret = process.env.JWT_SECRET;
 
 const authToken = (req: Request, _res: Response, next: NextFunction) => {
-  const token = req.headers.authorization as string;
-  if (!token) throw new CustomError(notFound, 401);
-  const user = jwt.verify(token, secret as jwt.Secret) as jwt.JwtPayload;
-  req.body.user = user;
-  next();
+  try {
+    const token = req.headers.authorization as string;
+    const user = jwt.verify(token, secret as jwt.Secret) as jwt.JwtPayload;
+    req.body.user = user;
+    next();
+  } catch (error) {
+    next(new CustomError(invalidToken, 401));
+  }
 };
 
 const getRole = (req: Request, res: Response, _next: NextFunction) => {

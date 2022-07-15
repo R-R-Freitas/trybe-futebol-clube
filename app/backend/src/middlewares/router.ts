@@ -34,6 +34,7 @@ router.get(
 
 router.post(
   '/matches',
+  authToken,
   (req, res, next) => (matchesFactory().createMatch(req, res, next)),
 );
 
