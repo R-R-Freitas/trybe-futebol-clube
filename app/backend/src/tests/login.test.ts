@@ -134,7 +134,7 @@ describe('Testa se a rota /login/validate retorna a role do usuário logado', ()
     (Users.findOne as sinon.SinonStub).restore();
   });
 
-  it('Verifica se a chamada retorna o código de status 200 e um token', async () => {
+  it('Verifica se a chamada retorna o código de status 200 e a role do user', async () => {
     chaiHttpResponse = await chai
        .request(app).post('/login').send(correctLoginBody);
 
