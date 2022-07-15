@@ -31,4 +31,9 @@ router.get(
   (req, res, next) => (matchesFactory().getAllMatches(req, res, next)),
 );
 
+router.post(
+  '/matches',
+  (req, res, next) => (matchesFactory().createMatch(req, res, next)),
+);
+
 export default router;
