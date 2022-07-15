@@ -105,6 +105,13 @@ const finishedMatches = [
   }
 ];
 
+const newMatch = {
+  homeTeam: 16,
+  awayTeam: 8,
+  homeTeamGoals: 2,
+  awayTeamGoals: 2
+};
+
 describe('Testa se é possível receber um array de partidas através do método get /matches', () => {
 
   let chaiHttpResponse: Response;
@@ -204,7 +211,7 @@ describe('Testa se é possível cadastrar uma partida em andamento', () => {
 
   it('Verifica se a chamada retorna o código de status 201 e uma partida em andamento', async () => {
     chaiHttpResponse = await chai
-       .request(app).post('/matches');
+       .request(app).post('/matches').send(newMatch);
 
     expect(chaiHttpResponse.status).to.be.equal(201);
     expect(chaiHttpResponse.body).to.be.an('object');
