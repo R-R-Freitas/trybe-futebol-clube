@@ -13,3 +13,10 @@ export interface MatchAndTeams extends Match {
   teamHome: TeamWithoutId,
   teamAway: TeamWithoutId,
 }
+
+export interface NewMatch {
+  homeTeam: number;
+  homeTeamGoals: number;
+  awayTeam: number;
+  awayTeamGoals: number;
+}
