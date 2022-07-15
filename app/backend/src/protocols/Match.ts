@@ -20,3 +20,8 @@ export interface NewMatch {
   awayTeam: number;
   awayTeamGoals: number;
 }
+
+export interface MatchScore {
+  homeTeamGoals: number;
+  awayTeamGoals: number;
+}

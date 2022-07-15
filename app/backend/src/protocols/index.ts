@@ -4,7 +4,7 @@ import ILoginService from './ILoginService';
 import ITeamsModel from './ITeamsModel';
 import ITeamsService from './ITeamsService';
 import Team from './Team';
-import Match, { MatchAndTeams, NewMatch } from './Match';
+import Match, { MatchAndTeams, NewMatch, MatchScore } from './Match';
 import IMatchesModel from './IMatchesModel';
 import IMatchesService from './IMatchesService';
 
@@ -19,6 +19,7 @@ export {
   Match,
   MatchAndTeams,
   NewMatch,
+  MatchScore,
   IMatchesModel,
   IMatchesService,
 };
