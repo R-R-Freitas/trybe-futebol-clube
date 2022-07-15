@@ -28,4 +28,14 @@ export default class MatchesController {
       next(error);
     }
   }
+
+  async finishMatch(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      await this.service.finishMatch(parseInt(id, 10));
+      res.status(200).json({ message: 'Finished' });
+    } catch (error) {
+      next(error);
+    }
+  }
 }

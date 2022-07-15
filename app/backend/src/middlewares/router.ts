@@ -1,7 +1,7 @@
 import * as express from 'express';
 import { loginFactory, teamsFactory, matchesFactory } from '../factories';
 import loginValidations from './loginValidations';
-import authToken from './authToken';
+import { authToken, getRole } from './authToken';
 
 const router = express.Router();
 
@@ -14,6 +14,7 @@ router.post(
 router.get(
   '/login/validate',
   authToken,
+  getRole,
 );
 
 router.get(
@@ -34,6 +35,11 @@ router.get(
 router.post(
   '/matches',
   (req, res, next) => (matchesFactory().createMatch(req, res, next)),
+);
+
+router.patch(
+  '/matches/:id/finish',
+  (req, res, next) => (matchesFactory().finishMatch(req, res, next)),
 );
 
 export default router;
