@@ -46,7 +46,7 @@ export default class MatchesRepository implements IMatchesModel {
       );
       return match as Match;
     } catch (error) {
-      throw new CustomError(invalidTeam, 401);
+      throw new CustomError(invalidTeam, 404);
     }
   }
 

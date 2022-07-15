@@ -309,7 +309,7 @@ describe('Testa se não é possível cadastrar uma partida com um time inexisten
   //   (Matches.findAll as sinon.SinonStub).restore();
   // });
 
-  it('Verifica se a chamada retorna o código de status 401 e a mensagem de erro', async () => {
+  it('Verifica se a chamada retorna o código de status 404 e a mensagem de erro', async () => {
     chaiHttpResponse = await chai
       .request(app).post('/login').send(correctLoginBody);
 
@@ -320,7 +320,7 @@ describe('Testa se não é possível cadastrar uma partida com um time inexisten
 
     const errorMessage = 'There is no team with such id!'
 
-    expect(chaiHttpResponse.status).to.be.equal(401);
+    expect(chaiHttpResponse.status).to.be.equal(404);
     expect(chaiHttpResponse.body).to.have.property('message', errorMessage);  });
 
 });
