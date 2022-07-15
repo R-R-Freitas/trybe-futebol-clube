@@ -187,3 +187,28 @@ describe('Testa se é possível receber um array de partidas encerradas usando q
   });
 
 });
+
+describe('Testa se é possível cadastrar uma partida em andamento', () => {
+
+  let chaiHttpResponse: Response;
+
+  // before(async () => {
+  //   sinon
+  //     .stub(Matches, 'findAll')
+  //     .resolves(finishedMatches as unknown as Matches[]);
+  // });
+
+  // after(()=>{
+  //   (Matches.findAll as sinon.SinonStub).restore();
+  // });
+
+  it('Verifica se a chamada retorna o código de status 201 e uma partida em andamento', async () => {
+    chaiHttpResponse = await chai
+       .request(app).post('/matches');
+
+    expect(chaiHttpResponse.status).to.be.equal(201);
+    expect(chaiHttpResponse.body).to.be.an('object');
+    expect(chaiHttpResponse.body).to.have.all.keys(['homeTeam', 'awayTeam', 'homeTeamGoals', 'awayTeamGoals', 'inProgress']);
+  });
+
+});
