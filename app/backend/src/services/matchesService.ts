@@ -1,5 +1,7 @@
 import CustomError from '../utils/CustomError';
-import { IMatchesService, IMatchesModel, MatchAndTeams, Match, NewMatch } from '../protocols';
+import {
+  IMatchesService, IMatchesModel, MatchAndTeams, Match, NewMatch, MatchScore,
+} from '../protocols';
 
 export default class MatchesService implements IMatchesService {
   constructor(private model: IMatchesModel) {
@@ -26,5 +28,9 @@ export default class MatchesService implements IMatchesService {
 
   async finishMatch(id: number): Promise<void> {
     await this.model.finishMatch(id);
+  }
+
+  async updateMatchScore(id: number, newScore: MatchScore): Promise<void> {
+    await this.model.updateMatchScore(id, newScore);
   }
 }

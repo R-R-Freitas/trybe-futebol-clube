@@ -1,7 +1,7 @@
 import CustomError from '../utils/CustomError';
 import Matches from '../database/models/MatchModel';
 import Teams from '../database/models/TeamModel';
-import { MatchAndTeams, IMatchesModel, Match, NewMatch } from '../protocols';
+import { MatchAndTeams, IMatchesModel, Match, NewMatch, MatchScore } from '../protocols';
 
 const invalidTeam = 'There is no team with such id!';
 
@@ -52,5 +52,10 @@ export default class MatchesRepository implements IMatchesModel {
 
   async finishMatch(id: number): Promise<void> {
     await this.model.update({ inProgress: false }, { where: { id } });
+  }
+
+  async updateMatchScore(id: number, newScore: MatchScore): Promise<void> {
+    const { homeTeamGoals, awayTeamGoals } = newScore;
+    await this.model.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
   }
 }

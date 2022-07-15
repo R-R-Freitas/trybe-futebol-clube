@@ -5,5 +5,5 @@ export default interface ITeamsService {
   getMatchesByProgressStatus(inProgress: boolean): Promise<MatchAndTeams[]>;
   createMatch(newMatch: NewMatch): Promise<Match>;
   finishMatch(id: number): void;
-  updateMatchScore(newScore: MatchScore): void;
+  updateMatchScore(id: number, newScore: MatchScore): void;
 }
