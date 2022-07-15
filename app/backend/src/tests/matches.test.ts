@@ -128,6 +128,11 @@ const invalidTeamMatch = {
   awayTeamGoals: 2
 };
 
+const newScore = {
+  homeTeamGoals: 3,
+  awayTeamGoals: 1,
+}
+
 describe('Testa se é possível receber um array de partidas através do método get /matches', () => {
 
   let chaiHttpResponse: Response;
@@ -361,5 +366,29 @@ describe('Testa se não é possível cadastrar uma partida sem um token válido'
       expect(chaiHttpResponse.status).to.be.equal(401);
       expect(chaiHttpResponse.body).to.have.property('message', errorMessage);
     });
+
+});
+
+describe('Testa se é possível alterar o placar de uma partida em andamento', () => {
+
+  let chaiHttpResponse: Response;
+
+  // before(async () => {
+  //   sinon
+  //     .stub(Matches, 'findAll')
+  //     .resolves(finishedMatches as unknown as Matches[]);
+  // });
+
+  // after(()=>{
+  //   (Matches.findAll as sinon.SinonStub).restore();
+  // });
+
+  it('Verifica se a chamada retorna o código de status 200 e a message: Gooooooaaaal!!!!', async () => {
+    chaiHttpResponse = await chai
+       .request(app).patch('/matches/41').send(newScore);
+
+    expect(chaiHttpResponse.status).to.be.equal(200);
+    expect(chaiHttpResponse.body).to.have.property('message', 'Gooooooaaaal!!!!');
+  });
 
 });
