@@ -43,4 +43,9 @@ router.patch(
   (req, res, next) => (matchesFactory().finishMatch(req, res, next)),
 );
 
+router.patch(
+  '/matches/:id',
+  (req, res, next) => (matchesFactory().updateMatchScore(req, res, next)),
+);
+
 export default router;
