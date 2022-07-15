@@ -1,6 +1,9 @@
+import CustomError from '../utils/CustomError';
 import Matches from '../database/models/MatchModel';
 import Teams from '../database/models/TeamModel';
 import { MatchAndTeams, IMatchesModel, Match, NewMatch } from '../protocols';
+
+const invalidTeam = 'There is no team with such id!';
 
 export default class MatchesRepository implements IMatchesModel {
   constructor(private model = Matches) {
@@ -35,12 +38,16 @@ export default class MatchesRepository implements IMatchesModel {
   }
 
   async createMatch(newMatch: NewMatch): Promise<Match> {
-    const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = newMatch;
-    const inProgress = true;
-    const match = await this.model.create(
-      { homeTeam, homeTeamGoals, awayTeam, awayTeamGoals, inProgress },
-    );
-    return match as Match;
+    try {
+      const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = newMatch;
+      const inProgress = true;
+      const match = await this.model.create(
+        { homeTeam, homeTeamGoals, awayTeam, awayTeamGoals, inProgress },
+      );
+      return match as Match;
+    } catch (error) {
+      throw new CustomError(invalidTeam, 404);
+    }
   }
 
   async finishMatch(id: number): Promise<void> {
