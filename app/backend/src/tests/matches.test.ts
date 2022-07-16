@@ -1,10 +1,14 @@
-import * as sinon from 'sinon';
+// Devido à natureza da implementação do sequelize em typescript, em especial no que tange aos relacionamentos
+// entre as tabelas, decidi retirar os stubs camada de model dos testes dos endpoints "/matches", por entender
+// que esta seria justamente a parte mais necessitava garantir o comportamento esperado.
+
+// import * as sinon from 'sinon';
 import * as chai from 'chai';
 // @ts-ignore
 import chaiHttp = require('chai-http');
 
 import { app } from '../app';
-import Matches from '../database/models/MatchModel';
+// import Matches from '../database/models/MatchModel';
 import { MatchAndTeams } from '../protocols';
 
 import { Response } from 'superagent';
