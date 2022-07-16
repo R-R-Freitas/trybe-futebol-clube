@@ -24,4 +24,14 @@ export default class TeamsController {
       next(error);
     }
   }
+
+  async getTeamsForLeaderBoard(req: Request, _res: Response, next: NextFunction) {
+    try {
+      const teams = await this.service.getAllTeams();
+      req.body.teams = teams;
+      next();
+    } catch (error) {
+      next(error);
+    }
+  }
 }

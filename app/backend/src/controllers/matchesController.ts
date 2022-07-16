@@ -49,4 +49,14 @@ export default class MatchesController {
       next(error);
     }
   }
+
+  async getMatchesForLeaderboard(req: Request, res: Response, next: NextFunction) {
+    try {
+      const matches = await this.service.getAllMatches();
+      req.body.matches = matches;
+      next();
+    } catch (error) {
+      next(error);
+    }
+  }
 }
