@@ -5,6 +5,7 @@ import { authToken, getRole } from './authToken';
 import {
   leaderboardHomeCreation,
   leaderboardAwayCreation,
+  leaderboardTotalCreation,
   leaderboardOrder,
 } from './leaderboardsCreation';
 
@@ -66,6 +67,16 @@ router.get(
   (req, res, next) => (teamsFactory().getTeamsForLeaderBoard(req, res, next)),
   (req, res, next) => (matchesFactory().getMatchesForLeaderboard(req, res, next)),
   leaderboardAwayCreation,
+  leaderboardOrder,
+);
+
+router.get(
+  '/leaderboard',
+  (req, res, next) => (teamsFactory().getTeamsForLeaderBoard(req, res, next)),
+  (req, res, next) => (matchesFactory().getMatchesForLeaderboard(req, res, next)),
+  leaderboardHomeCreation,
+  leaderboardAwayCreation,
+  leaderboardTotalCreation,
   leaderboardOrder,
 );
 
