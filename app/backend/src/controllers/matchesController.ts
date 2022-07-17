@@ -52,7 +52,7 @@ export default class MatchesController {
 
   async getMatchesForLeaderboard(req: Request, res: Response, next: NextFunction) {
     try {
-      const matches = await this.service.getAllMatches();
+      const matches = await this.service.getMatchesByProgressStatus(false);
       req.body.matches = matches;
       next();
     } catch (error) {

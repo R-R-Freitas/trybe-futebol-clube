@@ -2,6 +2,11 @@ import * as express from 'express';
 import { loginFactory, teamsFactory, matchesFactory } from '../factories';
 import loginValidations from './loginValidations';
 import { authToken, getRole } from './authToken';
+import {
+  leaderboardHomeCreation,
+  leaderboardAwayCreation,
+  leaderboardOrder,
+} from './leaderboardsCreation';
 
 const router = express.Router();
 
@@ -46,6 +51,22 @@ router.patch(
 router.patch(
   '/matches/:id',
   (req, res, next) => (matchesFactory().updateMatchScore(req, res, next)),
+);
+
+router.get(
+  '/leaderboard/home',
+  (req, res, next) => (teamsFactory().getTeamsForLeaderBoard(req, res, next)),
+  (req, res, next) => (matchesFactory().getMatchesForLeaderboard(req, res, next)),
+  leaderboardHomeCreation,
+  leaderboardOrder,
+);
+
+router.get(
+  '/leaderboard/away',
+  (req, res, next) => (teamsFactory().getTeamsForLeaderBoard(req, res, next)),
+  (req, res, next) => (matchesFactory().getMatchesForLeaderboard(req, res, next)),
+  leaderboardAwayCreation,
+  leaderboardOrder,
 );
 
 export default router;
