@@ -121,6 +121,26 @@ const leaderboardAwayCreation = (req: Request, res: Response, next: NextFunction
   next();
 };
 
+const leaderboardTotalCreation = (req:Request, res:Response, next:NextFunction) => {
+  const { leaderboardAway, leaderboardHome } = req.body;
+  const leaderboardTotal: LeaderboardTeam[] = [];
+  leaderboardAway.forEach((team: LeaderboardTeam, index: number) => leaderboardTotal.push({
+    name: team.name,
+    totalPoints: team.totalPoints + leaderboardHome[index].totalPoints,
+    totalGames: team.totalGames + leaderboardHome[index].totalGames,
+    totalVictories: team.totalVictories + leaderboardHome[index].totalVictories,
+    totalDraws: team.totalDraws + leaderboardHome[index].totalDraws,
+    totalLosses: team.totalLosses + leaderboardHome[index].totalLosses,
+    goalsFavor: team.goalsFavor + leaderboardHome[index].goalsFavor,
+    goalsOwn: team.goalsOwn + leaderboardHome[index].goalsOwn,
+    goalsBalance: team.goalsBalance + leaderboardHome[index].goalsBalance,
+    efficiency: Math.round(((team.totalPoints + leaderboardHome[index].totalPoints)
+      / ((team.totalGames + leaderboardHome[index].totalGames) * 3)) * 100 * 100) / 100,
+  }));
+  req.body.leaderboardTotal = leaderboardTotal;
+  next();
+};
+
 const orderStep4 = (team1: LeaderboardTeam, team2: LeaderboardTeam) => {
   if (team1.goalsFavor > team2.goalsFavor) return -1;
   if (team1.goalsFavor < team2.goalsFavor) return 1;
@@ -146,21 +166,25 @@ const orderStep1 = (team1: LeaderboardTeam, team2: LeaderboardTeam) => {
 };
 
 const leaderboardOrder = (req: Request, res: Response, _next: NextFunction) => {
-  const { leaderboardAway, leaderboardHome } = req.body;
+  const { leaderboardAway, leaderboardHome, leaderboardTotal } = req.body;
   if (!leaderboardAway) {
-    return res.status(200).json(
-      leaderboardHome.sort(
-        (team1: LeaderboardTeam, team2: LeaderboardTeam) => orderStep1(team1, team2),
-      ),
-    );
+    return res.status(200).json(leaderboardHome.sort(
+      (team1: LeaderboardTeam, team2: LeaderboardTeam) => orderStep1(team1, team2),
+    ));
   }
   if (!leaderboardHome) {
-    return res.status(200).json(
-      leaderboardAway.sort(
-        (team1: LeaderboardTeam, team2: LeaderboardTeam) => orderStep1(team1, team2),
-      ),
-    );
+    return res.status(200).json(leaderboardAway.sort(
+      (team1: LeaderboardTeam, team2: LeaderboardTeam) => orderStep1(team1, team2),
+    ));
   }
+  return res.status(200).json(leaderboardTotal.sort(
+    (team1: LeaderboardTeam, team2: LeaderboardTeam) => orderStep1(team1, team2),
+  ));
 };
 
-export { leaderboardAwayCreation, leaderboardHomeCreation, leaderboardOrder };
+export {
+  leaderboardAwayCreation,
+  leaderboardHomeCreation,
+  leaderboardOrder,
+  leaderboardTotalCreation,
+};
