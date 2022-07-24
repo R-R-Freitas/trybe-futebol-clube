@@ -17,7 +17,7 @@ npm run compose:up
 ```  
 O front-end rodará na porta 3000 e o back-end na porta 3001.  
   
-Para visualizarf o site digite na barra de endereços do navegador:  
+Para visualizar o site digite na barra de endereços do navegador:  
 ```  
 http://localhost:3000
 ```  
